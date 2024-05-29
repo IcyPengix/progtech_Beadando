@@ -48,16 +48,17 @@ namespace unitTest_Geekstore
             }
             Assert.IsNotNull(p);
             db.updateProduct(p.ID, "teszt1", 10, 1500);
-            products = db.getProducts();
-            foreach (Product product in products)
-            {
-                if (product.Name == "teszt1" && product.Quantity == 10 && product.Price == 1500 && product.ID == p.ID)
-                {
-                    benneVan = true;
-                    break;
-                }
-            }
-            Assert.IsTrue(benneVan);
+            //products = db.getProducts();
+            Product p2 = db.getProduct(p.ID);
+            //foreach (Product product in products)
+            //{
+            //    if (product.Name == "teszt1" && product.Quantity == 10 && product.Price == 1500 && product.ID == p.ID)
+            //    {
+            //        benneVan = true;
+            //        break;
+            //    }
+            //}
+            Assert.IsTrue(p2.Name == "teszt1" && p2.Quantity == 10 && p2.Price == 1500);
         }
 
         [TestMethod]
@@ -77,16 +78,18 @@ namespace unitTest_Geekstore
                 }
             }
             db.deleteProduct(p.ID);
-            products = db.getProducts();
-            foreach (Product product in products)
-            {
-                if (product.Name == "teszt" && product.Quantity == 20 && product.Price == 2500 && product.ID == p.ID)
-                {
-                    benneVan = true;
-                    break;
-                }
-            }
-            Assert.IsFalse(benneVan);
+            Product p2 = db.getProduct(p.ID);
+            //products = db.getProducts();
+            //foreach (Product product in products)
+            //{
+            //    if (product.Name == "teszt" && product.Quantity == 20 && product.Price == 2500 && product.ID == p.ID)
+            //    {
+            //        benneVan = true;
+            //        break;
+            //    }
+            //}
+            //Assert.IsFalse(benneVan);
+            Assert.IsNull(p2);
         }
 
         [TestMethod]
