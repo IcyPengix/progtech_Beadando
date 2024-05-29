@@ -116,5 +116,26 @@ namespace unitTest_Geekstore
             Assert.IsFalse(dr.Read());
             con.Close();
         }
+
+        [TestMethod]
+
+        public void TestRegisztracioLetrehozas()
+        {
+            OleDbConnection con = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=db_geekstore.mdb");
+            OleDbCommand cmd = new OleDbCommand();
+            string name = "testuser", password = "testuserpass";
+            con.Open();
+            string register = "INSERT INTO tbl_users VALUES('" + name + "','" + password + "' , FALSE)";
+            cmd = new OleDbCommand(register, con);
+            cmd.ExecuteNonQuery();
+
+            string login = $"SELECT * FROM tbl_users WHERE username= '{name}' and password= '{password}' ";
+            cmd = new OleDbCommand(login, con);
+            OleDbDataReader dr = cmd.ExecuteReader();
+            Assert.IsTrue(dr.Read());
+
+            string delete = $"DELETE FROM tbl_users WHERE username= '{name}' and password= '{password}' ";
+            con.Close();
+        }
     }
 }
